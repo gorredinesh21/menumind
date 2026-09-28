@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MenuMind — Semantic Menu Search & RAG (Go)</title>
+<meta name="description" content="Hybrid semantic search over Bangalore menus: BM25 + vector embeddings fused with RRF, and grounded LLM answers with citations. Built in Go.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🍽️</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark">🍽️</span><span class="brand-text">Menu<b>Mind</b></span></a>
+    <div class="nav-tags">
+      <span class="tag tag-live" id="live-badge">● LIVE</span>
+      <span class="tag">Go</span>
+      <span class="tag">Gen AI · RAG</span>
+      <span class="tag">BM25 + Vectors + RRF</span>
+      <a class="tag tag-link" href="https://github.com/gorredinesh21/menumind" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="hero">
+    <h1>Search 800 Bangalore dishes <span class="accent">the way you think</span>.</h1>
+    <p class="sub">MenuMind fuses classic keyword search (BM25) with vector similarity (bge embeddings) using
+    Reciprocal Rank Fusion — then grounds an LLM answer strictly in the retrieved dishes, with citations.
+    Every result shows which channel ranked it and why.</p>
+    <div class="search-row">
+      <input id="q" type="text" placeholder='try "something spicy and cheesy" or "high protein under 300"' maxlength="200">
+      <button id="search-btn" class="btn-primary">Search</button>
+      <button id="ask-btn" class="btn-ghost">Ask ✨</button>
+    </div>
+    <div class="filters">
+      <label class="filter"><input type="checkbox" id="f-veg"> Veg only</label>
+      <label class="filter">Under ₹ <input type="number" id="f-price" min="0" max="1000" placeholder="any" style="width:70px"></label>
+      <label class="filter">Min ⭐ <select id="f-rating"><option value="0">any</option><option value="4">4.0</option><option value="4.3">4.3</option><option value="4.6">4.6</option></select></label>
+      <span class="mut" id="index-stats"></span>
+    </div>
+    <div class="examples" id="examples">
+      <button class="chip" data-q="something warm and comforting">🍲 Comfort food</button>
+      <button class="chip" data-q="high protein grilled not fried">💪 High protein</button>
+      <button class="chip" data-q="late night spicy indulgence">🌙 Late night spicy</button>
+      <button class="chip" data-q="light and refreshing for summer">🥤 Light &amp; fresh</button>
+      <button class="chip" data-q="cheesy and indulgent but cheap">🧀 Cheapy cheesy</button>
+    </div>
+  </section>
+
+  <section class="results-wrap">
+    <div id="answer-panel" class="card answer hidden">
+      <div class="answer-head">✨ <b>MenuMind's answer</b> <span class="mut" id="answer-mode"></span></div>
+      <div class="answer-body" id="answer-body"></div>
+      <div class="answer-cites" id="answer-cites"></div>
+    </div>
+    <div class="results-head" id="results-head"></div>
+    <div class="grid" id="results"></div>
+    <div class="empty-note hidden" id="empty-note">No dishes matched. Try broader words or drop the filters.</div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>MenuMind — Go + GenAI · BM25 + cosine + RRF hybrid retrieval, grounded citations, SSE streaming · <a href="https://github.com/gorredinesh21/menumind" target="_blank" rel="noopener">source</a></span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

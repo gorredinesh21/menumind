@@ -1,0 +1,4 @@
+bin/
+*.exe
+*.log
+data/embeddings.json.tmp
