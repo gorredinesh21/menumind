@@ -134,7 +134,7 @@
   fetch("/stats").then(r => r.json()).then(s => {
     $("index-stats").textContent = `${s.dishes} dishes · ${s.restaurants} restaurants · ${s.vectors || 0} vectors`;
   }).catch(() => {});
-  fetch("/healthz").then(r => r.json()).then(h => {
+  fetch("/live").then(r => r.json()).then(h => {
     if (h.semantic && h.generation) $("live-badge").textContent = "● LIVE · SEMANTIC + RAG";
     else if (h.semantic) $("live-badge").textContent = "● LIVE · SEMANTIC";
     else $("live-badge").textContent = "● LIVE · LEXICAL";
